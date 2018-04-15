@@ -1,40 +1,40 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const _import = require('./_import_' + process.env.NODE_ENV)
-// in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
-// detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
+// 在开发环境全部资源加载
+// 因为懒加载太多页面，回让webpack热更新变慢
+// 所以，只有在线上环境才会用懒加载
+// 具体https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import Layout from '../views/layout/Layout' //一个layout框
 
-/** note: submenu only apppear when children.length>=1
-*   detail see  https://panjiachen.github.io/vue-element-admin-site/#/router-and-nav?id=sidebar
+/** 注意: 菜单只有在路由配置中，children>=1 才会生成
 **/
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
+* hidden: true                   如果false，将不会生成菜单
+* alwaysShow: true               如果设置为true，则忽略其children，该路由将总是展示中菜单中
 * redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
+* name:'router-name'             名字是为了<keep-alive> (必须设置!!!)
 * meta : {
-    roles: ['admin','editor']     will control the page roles (you can set multiple roles)
-    title: 'title'               the name show in submenu and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar,
-    noCache: true                if true ,the page will no be cached(default is false)
+    roles: ['admin','editor']    设置该页面的权限，不设置则为公用页面
+    title: 'title'               页面的标题
+    icon: 'svg-name'             显示在菜单中的图标,
+    noCache: true                设为true，该页面不会被缓存，默认为false
   }
 **/
+// 都有的公共路由
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
-  { path: '/404', component: _import('errorPage/404'), hidden: true },
-  { path: '/401', component: _import('errorPage/401'), hidden: true },
+  { path: '/login', component: _import('login/index'), hidden: true },//登录页面
+  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },//权限跳转页面
+  { path: '/404', component: _import('errorPage/404'), hidden: true },//404
+  { path: '/401', component: _import('errorPage/401'), hidden: true },//401
   {
     path: '',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'dashboard',
     children: [{
       path: 'dashboard',
@@ -45,7 +45,7 @@ export const constantRouterMap = [
   },
   {
     path: '/documentation',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: '/documentation/index',
     children: [{
       path: 'index',
@@ -61,13 +61,13 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
-
+// 后期会异步加载的路由表
 export const asyncRouterMap = [
   {
     path: '/permission',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: '/permission/index',
-    meta: { roles: ['admin'] }, // you can set roles in root nav
+    // meta: { roles: ['admin'] }, // you can set roles in root nav
     children: [{
       path: 'index',
       component: _import('permission/index'),
@@ -75,14 +75,13 @@ export const asyncRouterMap = [
       meta: {
         title: 'permission',
         icon: 'lock',
-        roles: ['admin'] // or you can only set roles in sub nav
+        // roles: ['admin'] // or you can only set roles in sub nav
       }
     }]
   },
-
   {
     path: '/icon',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     children: [{
       path: 'index',
       component: _import('svg-icons/index'),
@@ -90,10 +89,9 @@ export const asyncRouterMap = [
       meta: { title: 'icons', icon: 'icon', noCache: true }
     }]
   },
-
   {
     path: '/components',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     name: 'component-demo',
     meta: {
@@ -117,7 +115,7 @@ export const asyncRouterMap = [
 
   {
     path: '/charts',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     name: 'charts',
     meta: {
@@ -133,7 +131,7 @@ export const asyncRouterMap = [
 
   {
     path: '/example',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: '/example/table/complex-table',
     name: 'example',
     meta: {
@@ -165,7 +163,7 @@ export const asyncRouterMap = [
 
   {
     path: '/form',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     name: 'form',
     meta: {
@@ -180,7 +178,7 @@ export const asyncRouterMap = [
 
   {
     path: '/error',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     name: 'errorPages',
     meta: {
@@ -195,14 +193,14 @@ export const asyncRouterMap = [
 
   {
     path: '/error-log',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     children: [{ path: 'log', component: _import('errorLog/index'), name: 'errorLog', meta: { title: 'errorLog', icon: 'bug' }}]
   },
 
   {
     path: '/excel',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: '/excel/export-excel',
     name: 'excel',
     meta: {
@@ -218,7 +216,7 @@ export const asyncRouterMap = [
 
   {
     path: '/zip',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: '/zip/download',
     alwaysShow: true,
     meta: { title: 'zip', icon: 'zip' },
@@ -227,21 +225,21 @@ export const asyncRouterMap = [
 
   {
     path: '/theme',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     children: [{ path: 'index', component: _import('theme/index'), name: 'theme', meta: { title: 'theme', icon: 'theme' }}]
   },
 
   {
     path: '/clipboard',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     redirect: 'noredirect',
     children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
   },
 
   {
     path: '/i18n',
-    component: Layout,
+    component: Layout,//所有子页面套上layout页
     children: [{ path: 'index', component: _import('i18n-demo/index'), name: 'i18n', meta: { title: 'i18n', icon: 'international' }}]
   },
 

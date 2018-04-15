@@ -1,3 +1,4 @@
+// 命令
 const vueSticky = {}
 let listenAction
 vueSticky.install = Vue => {

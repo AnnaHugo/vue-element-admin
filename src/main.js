@@ -1,36 +1,37 @@
+// 开始vue项目的基本配置
 import Vue from 'vue'
 
-import 'normalize.css/normalize.css'// A modern alternative to CSS resets
+import 'normalize.css/normalize.css'// 基础css样式初始化
 
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import Element from 'element-ui'  //饿了么Element库
+import 'element-ui/lib/theme-chalk/index.css' 
 
-import '@/styles/index.scss' // global css
+import '@/styles/index.scss' // 公共样式
 
-import App from './App'
-import router from './router'
-import store from './store'
+import App from './App' //vue组件入口
+import router from './router'   //路由表
+import store from './store'    //vuex配置
 
-import i18n from './lang' // Internationalization
+import i18n from './lang' // 国际化插件
 import './icons' // icon
 import './errorLog'// error log
-import './permission' // permission control
-import './mock' // simulation data
+import './permission' // 权限控制函数
+import './mock' // mock拦截数据
 
-import * as filters from './filters' // global filters
-
+import * as filters from './filters' // 全局过滤器
+//使用饿了么插件
 Vue.use(Element, {
-  size: 'medium', // set element-ui default size
+  size: 'medium', //设置尺寸
   i18n: (key, value) => i18n.t(key, value)
 })
-
-// register global utility filters.
+ 
+// 注册过滤器
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+Vue.config.productionTip = true  //生产环境提示，关闭
 
-Vue.config.productionTip = false
-
+// 生成vue实例
 new Vue({
   el: '#app',
   router,

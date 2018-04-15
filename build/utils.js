@@ -1,4 +1,5 @@
 'use strict'
+// 打包时用到的一些工具库
 const path = require('path')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')

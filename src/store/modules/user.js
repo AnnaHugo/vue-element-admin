@@ -46,14 +46,21 @@ const user = {
   actions: {
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+      const username = userInfo.username.trim();//去除头尾空格
+      const password = userInfo.password;
+      // 返回异步函数
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
+        // 调用ajax
+        loginByUsername(username, password).then(response => {
           const data = response.data
+          // 保存token到vuex
           commit('SET_TOKEN', data.token)
+          // 保存token到cookie
           setToken(response.data.token)
+          //成功返回
           resolve()
         }).catch(error => {
+          // 失败返回
           reject(error)
         })
       })

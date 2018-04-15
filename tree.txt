@@ -1,0 +1,62 @@
+.
+├── build   项目打包相关脚本
+│   ├── build.js    打包脚本
+│   ├── check-versions.js   检查npm包脚本
+│   ├── logo.png    提示logo文件
+│   ├── utils.js    相关工具库
+│   ├── vue-loader.conf.js  loader转换器相关配置
+│   ├── webpack.base.conf.js    打包基础配置
+│   ├── webpack.dev.conf.js     开发环境打包配置
+│   └── webpack.prod.conf.js    生产环境打包配置
+├── config      把build中部分可配置部分提取到这
+│   ├── dev.env.js      开发环境配置
+│   ├── index.js    基本文件
+│   ├── prod.env.js     生产环境配置
+│   └── sit.env.js      系统集成测试环境配置
+├── favicon.ico     favicon.ico文件～
+├── index.html      html入口
+├── package.json    项目相关依赖说明
+├── src     跟页面有关的源代码
+│   ├── App.vue     vue入口文件
+│   ├── api     接口文件
+│   ├── assets      共用静态资源库
+│   ├── components      公共组件库
+│   ├── directive   自定义指令
+│   │   ├── clipboard
+│   │   │   ├── clipboard.js
+│   │   │   └── index.js
+│   │   ├── sticky.js
+│   │   └── waves
+│   │       ├── index.js
+│   │       ├── waves.css
+│   │       └── waves.js
+│   ├── filters 过滤器
+│   │   └── index.js
+│   ├── icons   小图标库
+│   │   ├── index.js
+│   │   └── svg
+│   ├── lang    多语言包
+│   │   ├── en.js
+│   │   ├── index.js
+│   │   └── zh.js
+│   ├── main.js     vue项目入口脚本
+│   ├── mock    mock接口虚拟配置
+│   ├── permission.js   权限设置
+│   ├── router  路由配置
+│   │   ├── _import_development.js
+│   │   ├── _import_production.js
+│   │   └── index.js
+│   ├── store   vuex配置
+│   │   ├── getters.js
+│   │   ├── index.js
+│   │   └── modules
+│   │       ├── app.js
+│   │       ├── errorLog.js
+│   │       ├── permission.js
+│   │       ├── tagsView.js
+│   │       └── user.js
+│   ├── styles      样式文件
+│   ├── utils   工具库
+│   ├── vendor  第三方插件工具库
+│   └── views   页面文件
+└──  static  静态文件

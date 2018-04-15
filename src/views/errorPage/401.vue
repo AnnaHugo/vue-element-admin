@@ -65,7 +65,6 @@ export default {
     .pan-img {
       display: block;
       margin: 0 auto;
-      width: 100%;
     }
     .text-jumbo {
       font-size: 60px;

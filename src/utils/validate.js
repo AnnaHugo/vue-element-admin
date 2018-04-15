@@ -1,9 +1,8 @@
 /**
- * Created by jiachenpan on 16/11/18.
  */
 
 export function isvalidUsername(str) {
-  const valid_map = ['admin', 'editor']
+  const valid_map = ['admin', 'editor','agenter','player']
   return valid_map.indexOf(str.trim()) >= 0
 }
 

@@ -1,3 +1,4 @@
+// 可看https://panjiachen.github.io/vue-element-admin-site/#/zh-cn/mock-api
 import Mock from 'mockjs'
 import loginAPI from './login'
 import articleAPI from './article'

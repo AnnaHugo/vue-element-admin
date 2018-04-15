@@ -1,27 +1,33 @@
 <template>
   <div class="login-container">
+    <!-- form表单，注意rules和ref的用法 -->
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
+      <!-- 标题 -->
       <div class="title-container">
         <h3 class="title">{{$t('login.title')}}</h3>
         <lang-select class="set-language"></lang-select>
       </div>
+      <!-- 用户名 -->
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
+        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" :placeholder="$t('login.username')" />
       </el-form-item>
-
+      <!-- 登录密码 -->
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="password" />
+        <!-- 密码输入框，注意passwordType -->
+        <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" :placeholder="$t('login.password')" />
+        <!-- 密码是否可见 -->
         <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye" />
         </span>
-      </el-form-item>
 
+      </el-form-item>
+      <!-- 提交按钮 -->
       <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
 
       <div class="tips">
@@ -57,15 +63,17 @@ export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
+      console.log(value);
       if (!isvalidUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error(this.$t('login.errName')))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
+      console.log(value);
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error(this.$t('login.errPassword')))
       } else {
         callback()
       }
@@ -93,38 +101,41 @@ export default {
       }
     },
     handleLogin() {
+      // 先做数据验证
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          // 验证通过
           this.loading = true
           this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
             this.loading = false
+            // 登录成功后，重定向的首页
             this.$router.push({ path: '/' })
           }).catch(() => {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          Message.error(this.$t('login.errSubmit'))
           return false
         }
       })
     },
     afterQRScan() {
-      // const hash = window.location.hash.slice(1)
-      // const hashObj = getQueryObject(hash)
-      // const originUrl = window.location.origin
-      // history.replaceState({}, '', originUrl)
-      // const codeMap = {
-      //   wechat: 'code',
-      //   tencent: 'code'
-      // }
-      // const codeName = hashObj[codeMap[this.auth_type]]
-      // if (!codeName) {
-      //   alert('第三方登录失败')
-      // } else {
-      //   this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-      //     this.$router.push({ path: '/' })
-      //   })
-      // }
+      const hash = window.location.hash.slice(1)
+      const hashObj = getQueryObject(hash)
+      const originUrl = window.location.origin
+      history.replaceState({}, '', originUrl)
+      const codeMap = {
+        wechat: 'code',
+        tencent: 'code'
+      }
+      const codeName = hashObj[codeMap[this.auth_type]]
+      if (!codeName) {
+
+      } else { 
+        // this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
+          // this.$router.push({ path: '/' })
+        // })
+      }
     }
   },
   created() {

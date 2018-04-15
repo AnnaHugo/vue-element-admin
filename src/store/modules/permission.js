@@ -7,8 +7,10 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
  */
 function hasPermission(roles, route) {
   if (route.meta && route.meta.roles) {
+    //如果route有设置meta.roles
     return roles.some(role => route.meta.roles.indexOf(role) >= 0)
   } else {
+    // 否则是不需要权限即可进入
     return true
   }
 }
@@ -28,6 +30,7 @@ function filterAsyncRouter(asyncRouterMap, roles) {
     }
     return false
   })
+    console.log(accessedRouters);
   return accessedRouters
 }
 
@@ -48,8 +51,10 @@ const permission = {
         const { roles } = data
         let accessedRouters
         if (roles.indexOf('admin') >= 0) {
+          //如果是管理员，拥有所有页面的权限
           accessedRouters = asyncRouterMap
         } else {
+          //否则，需要递归作筛选
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)

@@ -1,5 +1,5 @@
 /**
- *Created by jiachenpan on 16/11/29.
+ * 打开一个新窗口
  * @param {Sting} url
  * @param {Sting} title
  * @param {Number} w
@@ -16,9 +16,9 @@ export default function openWindow(url, title, w, h) {
 
   const left = ((width / 2) - (w / 2)) + dualScreenLeft
   const top = ((height / 2) - (h / 2)) + dualScreenTop
-  const newWindow = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+  const newWindow = window.open(url, title, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
 
-  // Puts focus on the newWindow
+  // 聚焦新窗口
   if (window.focus) {
     newWindow.focus()
   }

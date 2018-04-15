@@ -13,8 +13,22 @@ const userMap = {
     token: 'editor',
     introduction: '我是编辑',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
-  }
+    name: 'Normal editor'
+  },
+  player: {
+    roles: ['player'],
+    token: 'player',
+    introduction: '我是玩家',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Normal player'
+  },
+  agenter: {
+    roles: ['agenter'],
+    token: 'agenter',
+    introduction: '我是代理',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Super agenter'
+  },
 }
 
 export default {

@@ -11,16 +11,16 @@ function exec (cmd) {
 const versionRequirements = [
   {
     name: 'node',
-    currentVersion: semver.clean(process.version),
-    versionRequirement: packageConfig.engines.node
+    currentVersion: semver.clean(process.version),//目前的版本，解析版本号，忽略版本号前面的符号
+    versionRequirement: packageConfig.engines.node//需要的版本
   }
 ]
 
 if (shell.which('npm')) {
   versionRequirements.push({
     name: 'npm',
-    currentVersion: exec('npm --version'),
-    versionRequirement: packageConfig.engines.npm
+    currentVersion: exec('npm --version'),//目前的版本
+    versionRequirement: packageConfig.engines.npm//需要的版本
   })
 }
 
@@ -32,7 +32,7 @@ module.exports = function () {
 
     if (!semver.satisfies(mod.currentVersion, mod.versionRequirement)) {
       warnings.push(mod.name + ': ' +
-        chalk.red(mod.currentVersion) + ' should be ' +
+        chalk.red(mod.currentVersion) + ' 需要的版本号为： ' +
         chalk.green(mod.versionRequirement)
       )
     }
@@ -40,12 +40,12 @@ module.exports = function () {
 
   if (warnings.length) {
     console.log('')
-    console.log(chalk.yellow('To use this template, you must update following to modules:'))
+    console.log(chalk.yellow('为正常使用这套模版，你需要更新以下依赖包:'))
     console.log()
 
     for (let i = 0; i < warnings.length; i++) {
       const warning = warnings[i]
-      console.log('  ' + warning)
+      console.log('提示：' + warning)
     }
 
     console.log()
